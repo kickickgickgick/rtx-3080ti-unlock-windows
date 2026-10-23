@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "stage": "locked-after-reboot-continuous-power",
+  "usb_g_present": false,
+  "driver": "596.02",
+  "telemetry_interval_requested_ms": 100,
+  "sample_count": 201,
+  "first_timestamp": "2026-10-20T16:55:01.080",
+  "last_timestamp": "2026-10-20T16:55:22.092",
+  "duration_seconds": 21.012,
+  "power": {
+    "overall_average_w": 296.67,
+    "overall_maximum_w": 331.70,
+    "p95_w": 330.69,
+    "p99_w": 331.70,
+    "minimum_w": 139.63,
+    "gpu_load_filter": "utilization.gpu >= 90%",
+    "gpu_load_sample_count": 171,
+    "gpu_load_average_w": 309.05,
+    "gpu_load_maximum_w": 331.70,
+    "high_power_filter": "power.draw >= 250 W",
+    "high_power_sample_count": 181,
+    "high_power_average_w": 312.07,
+    "power_limit_w": 400.0
+  },
+  "temperature": {
+    "maximum_c": 74.0
+  },
+  "clock": {
+    "maximum_sm_mhz": 1980.0,
+    "average_sm_under_gpu_load_mhz": 1923.2
+  },
+  "performance_median_tflops": {
+    "fp32_pedantic": 24.570750,
+    "fp16_tensor_fp32_accumulate": 70.367198,
+    "bf16_tensor_fp32_accumulate": 70.437014
+  },
+  "comparison_to_run05_unlocked": {
+    "unlocked_result": "../run05-continuous-power-20261020-164548/summary.json",
+    "unlocked_change_percent": {
+      "fp32_pedantic": 0.20,
+      "fp16_tensor_fp32_accumulate": 84.65,
+      "bf16_tensor_fp32_accumulate": 87.39,
+      "gpu_load_average_power": 11.60,
+      "maximum_power": 19.99
+    }
+  },
+  "notes": [
+    "Overall average includes the initial idle sample window and transitions between benchmark processes.",
+    "GPU-load average includes samples whose reported GPU utilization was at least 90 percent.",
+    "nvidia-smi power.draw is sampled telemetry, not an external wall-power measurement."
+  ]
+}

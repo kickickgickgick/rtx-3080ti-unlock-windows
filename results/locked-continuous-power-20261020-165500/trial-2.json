@@ -1,0 +1,42 @@
+{
+  "gpu": "NVIDIA GeForce RTX 3080 Ti",
+  "compute_capability": "8.6",
+  "cuda_runtime": 12080,
+  "cuda_driver_api": 13020,
+  "cublas": 120803,
+  "benchmarks": [
+    {
+      "name": "fp32_pedantic",
+      "n": 4096,
+      "samples": 30,
+      "warmup_seconds": 2,
+      "median_ms": 5.5936,
+      "min_ms": 5.039104,
+      "max_ms": 6.098944,
+      "gflops": 24570.75,
+      "reference_checked": true
+    },
+    {
+      "name": "fp16_tensor_fp32_accumulate",
+      "n": 4096,
+      "samples": 30,
+      "warmup_seconds": 2,
+      "median_ms": 1.952256,
+      "min_ms": 1.939456,
+      "max_ms": 2.48,
+      "gflops": 70400.068,
+      "reference_checked": true
+    },
+    {
+      "name": "bf16_tensor_fp32_accumulate",
+      "n": 4096,
+      "samples": 30,
+      "warmup_seconds": 2,
+      "median_ms": 1.955216,
+      "min_ms": 1.94048,
+      "max_ms": 2.763776,
+      "gflops": 70293.491,
+      "reference_checked": true
+    }
+  ]
+}

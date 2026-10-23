@@ -1,0 +1,2 @@
+# Preserve the exact reviewed bytes and SHA256 evidence across checkouts.
+* -text

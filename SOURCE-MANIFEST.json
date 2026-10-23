@@ -1,0 +1,745 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "7e814425b43d54bd9d9b1eb0993b334e0452243920833208b12902dd5f56b24b"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "505a7fa15dbc53f529f7ad8b9b845bb236f36a86e4fa985ba5fc9a98849fd4dc"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b"
+    },
+    {
+      "path": "LICENSES/CMP40HX-MIT.txt",
+      "sha256": "3d9eb567abded21047833b5a0b5acf827c504d15d191e1ca0129672a45f6a6f7"
+    },
+    {
+      "path": "LICENSES/EDK2-BSD-2-Clause-Patent.txt",
+      "sha256": "50ce20c9cfdb0e19ee34fe0a51fc0afe961f743697b068359ab2f862b494df80"
+    },
+    {
+      "path": "LICENSES/NVIDIA-Driver.txt",
+      "sha256": "c692fb14ad4f499c6aee1b9e144e6905148c420e6225b17cb2937366c1e507ad"
+    },
+    {
+      "path": "LICENSES/NVIDIA-MIT.txt",
+      "sha256": "c83f0e32786652a67625fb0770db09ee46fe1ebefba4790600a5ffce52dbde1d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "43cf653f5c80b08936b70edb4f25c00fd7874e2c11480fda0f97002241382580"
+    },
+    {
+      "path": "TESTING.md",
+      "sha256": "a89a9b9ea0f32f47ce9d7d516d4b5ed65715819fe4cc9a5f9f3d4e31fcf8d1c5"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "6c624903bb6f45e428012dd299f62a98b80263fb97881930c4115ea0f698c30d"
+    },
+    {
+      "path": "build-probe.ps1",
+      "sha256": "31909a6fc6d5d1a801161a8890a3b69a87b55b150f0ffff494f7322206b962c5"
+    },
+    {
+      "path": "deps/edk2/License.txt",
+      "sha256": "50ce20c9cfdb0e19ee34fe0a51fc0afe961f743697b068359ab2f862b494df80"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Base.h",
+      "sha256": "a90f4bf7b02910711506fa1882a709ca10a6798bd5614c1690b5b10b843f9cfa"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/FileInfo.h",
+      "sha256": "9d435781257c79d5400ed9720570f3099b90f5b1758fcce7a11d73887c674132"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/GlobalVariable.h",
+      "sha256": "40ca19c52e3a5d2398ef3c5183e044e992880ca9c624fb5fae471aa7bea97de5"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/Gpt.h",
+      "sha256": "346417e2ca1b1fc1338d0920a9a85d3ad6c28b21798020958990ba0818c50eb7"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/HiiFormMapMethodGuid.h",
+      "sha256": "06fe59e6d8d100f4a65449b4c9bcde3bae2a33d30269e835e1aa82e00cd125f6"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/PcAnsi.h",
+      "sha256": "f6fdc08a546da7f436dbcb9482049c4bff42e271b071cfd6f8587f2f8989d489"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Guid/WinCertificate.h",
+      "sha256": "ad38747eeea5a9d62905818bef6acdbd856a18dd50708e58c2e867e50e9da8e4"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi.h",
+      "sha256": "745556c4210e03a8238727f54fbfec93fe17439e150a0e44af8d48e0e86ed028"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi10.h",
+      "sha256": "55b8450e1f393b7d5eb0cbc3fd39d7f0db5da60052ec59eacc43cd63d5f42fc5"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi20.h",
+      "sha256": "8754c2b2acd7fd77f27506448ddc5427d196c92146249ffef71dee9dd364ee85"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi30.h",
+      "sha256": "ca86c3d192585f64d07232ab0dec59f1aac2e5d36740a21e0a206a59176c660d"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi40.h",
+      "sha256": "3ef9f3294fbe713c7ed715ae69e0eff0b997792a4fdcc2ade0f33ae588b70b7b"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi50.h",
+      "sha256": "7fac6ae73f7061b008fa9707c873771b69f09fb9ff73d6026ea32fbd7f6faa63"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi51.h",
+      "sha256": "e58505211fa3863eaa93b9e4e1cb82128318bc2a392ecdf49ab1086506ad7726"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi60.h",
+      "sha256": "e9f7637646ea289e738fe4dad248819362bf8135e89137e627756432186097c9"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi61.h",
+      "sha256": "64a5e5663e5875a592a59ebbf2156393d0844709fce9c0c37136eacbf0a16490"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi62.h",
+      "sha256": "7dbbd7565b904a3cf5f77e71bd027b5cbecc79ea66641c0d29bdefd9421dc02e"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi63.h",
+      "sha256": "c15d966e7f3939716bca9a9f9e0ebf30f514c480c24faa7fcc0525c68550508d"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi64.h",
+      "sha256": "e0523d69aacb9d75187ece2dd25a6da41650eb5109108264d0021f4a3d7691fa"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi65.h",
+      "sha256": "0cd3d68773929258af2ea4225b9c70faeeaf4f0c6f402f81413a8f9d9c53ba0f"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi66.h",
+      "sha256": "58dd9ac6ad607d506a3d968e42b71ab028ea15fe1c5a00b52987dba0fea2bc34"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Acpi67.h",
+      "sha256": "e49e942d3335ed9f12647f9f6d54caf1568de90b44fa41d452612ce813be1412"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/AcpiAml.h",
+      "sha256": "2cc788ed002c96dfe959cd77bb180ebfa5eda0eb7686b448483386d4a0e3b56f"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Bluetooth.h",
+      "sha256": "316c2e28022b0954828ad5feaf5136183c5a6b8f6c3788798d50ed921f71e554"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Mbr.h",
+      "sha256": "683ad460e3f0b0973fe7eba448d226c19e98e03e9afea83355d3f9ee6acce0f6"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Pci.h",
+      "sha256": "42db0b91fd83f018f9b2c3d562453fa64cebc4143d150c7cd7b3f3442893377e"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Pci22.h",
+      "sha256": "9bba08b54f4474a5d3548e80f180e6bd293773a8647703317b6fd7f48adc84d4"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Pci23.h",
+      "sha256": "10c1b5f66216ffe3b4edfb1c5b1f4220f79acb9d863b79e5af80d2c62ea59755"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/Pci30.h",
+      "sha256": "2492bfd6416a8883a6bd1d91c8f50f4067ddd75ab0ab9f4d72cdb82a69d12843"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciCodeId.h",
+      "sha256": "a4c3fabef1175e3ad4c60b484a8fffb4be04ad68b978f4d181649efa0cb4a95c"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress21.h",
+      "sha256": "3b9ac56743725fcb32487ccd8d41436b7e5f6a51f8bb6cd249f572f5a9275e39"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress30.h",
+      "sha256": "8ab2ae067f8f63c5a2071788ff8ae255c015121d02846f05eea7e493dd1b8f33"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress31.h",
+      "sha256": "d466626b867c960bc19e75420195d210fc1d492c89121558d87d0e7233e84522"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress40.h",
+      "sha256": "672757e0550c45e7b32b2eaf157ab4057d5eab0514e268be8866d28b73d13ec6"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress50.h",
+      "sha256": "35f86a4d76e9083a8621cddf778c96a48d3bf96d8a71943fd4bed3fc3142cb8d"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress60.h",
+      "sha256": "aaf608c8122e8e0bb1fea9a74ce826fbdbc2aaa8467a28b70651b0e49c9aabbb"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/IndustryStandard/PciExpress70.h",
+      "sha256": "2edce280ca147fccfbaeea0e4bc619f24366444efb26a155a65bdf3927645930"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/DevicePath.h",
+      "sha256": "0a3b384fc24ee7901f79094e07dc659133509cec2243fd47dbf543005ff61301"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/DriverBinding.h",
+      "sha256": "e2c791c00ecb3a674d5aaa08800b76f43c37d1de05aa4d50ff28086209d3de16"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/GraphicsOutput.h",
+      "sha256": "1f63d49ac45dbc1c00464cff900c61952610d648e551e478428ef2ff601f4092"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/LoadedImage.h",
+      "sha256": "c8e3e7d2b93b6cec475aea128ec6eec0f0328654037627197ac1cab43febc02b"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/PartitionInfo.h",
+      "sha256": "8091944926be1b10cbf1145a48e471defc9dfcb18f09e5163f0d891d0b09fa29"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/PciIo.h",
+      "sha256": "11ef99b00e6b5013842996447a6ec410d4020332075cd9d211a2734318d71197"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/SimpleFileSystem.h",
+      "sha256": "60c300b0db855ed6b18062059a024af873b37208ee8f33e2bb1a6b5a6900dcfb"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/SimpleTextIn.h",
+      "sha256": "a4070de5d42c98529642a72d372f1b33f0a4ce9700cbdeb6c521cdfaba2dc012"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/SimpleTextInEx.h",
+      "sha256": "2709e544277f4b0ffa0696bcadd5079cfccb8188eaf3fb938e97bf13a2ad561b"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Protocol/SimpleTextOut.h",
+      "sha256": "b27a98bdc4b77f9e47097ef10fb78af564a51b0b91215e064d294abac8d862db"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi.h",
+      "sha256": "1ec56991b282c4540aedee24b83dde7ff252eacfceec2d5d717192c8ce759683"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiBaseType.h",
+      "sha256": "3849c0033d272b7eb54042e84063145a89e3394a1e3da912db7dc27c8214e180"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiGpt.h",
+      "sha256": "cc924f8228df2b1e04b4e2d4b0c7d4eca76b02ffb836f559b8ef7e67d1bc2aa1"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiInternalFormRepresentation.h",
+      "sha256": "918e64229ba7eb445cf9299732f90fba27e8d209be967148bc0d3cf18f492a25"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiMultiPhase.h",
+      "sha256": "d4ca140abf49811bcad80bf9274d65278fe46b7d9ee51cb5c7cb7f590e938550"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiPxe.h",
+      "sha256": "f00f7b419e747c3700fab786533bca1e9b032db97b94d2c0a03d6608b9489ceb"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/Uefi/UefiSpec.h",
+      "sha256": "b9ae7c3067e372690edef10299288007773496b810982bc5fcf81873dd651325"
+    },
+    {
+      "path": "deps/edk2/MdePkg/Include/X64/ProcessorBind.h",
+      "sha256": "20b43822b0737cbd0f692ad8200cba4cfc47c192431827a98056c8a0068efb19"
+    },
+    {
+      "path": "docs/USB-BOOT.md",
+      "sha256": "15876b2a5a8d5381f46e4ffff0c5bc6c3ffe68f684fcd5f5f4aaa9e5ad8578b9"
+    },
+    {
+      "path": "efi_runtime.c",
+      "sha256": "8949b6cacbdf2f41c7248a4b290c6c2bb7c19cb1a231699fd310d1e526e2d3f4"
+    },
+    {
+      "path": "probe_app.c",
+      "sha256": "89649312c670f89583d705f055b9d72d0f5a5d490e54c522325828588a2a6337"
+    },
+    {
+      "path": "probe_core.c",
+      "sha256": "426a0d01fd4d010eadf7537395d8fe3931e414e5cac1db742ef35e0678c0f6d0"
+    },
+    {
+      "path": "probe_core.h",
+      "sha256": "86e7db86cf9695d1e92d7b84424b46a3e5482d15a31d5abb5e4610789c62e9c5"
+    },
+    {
+      "path": "profiles/README.md",
+      "sha256": "8f4f40c3978dc4a1b7b5198e3cd6873ed73bcff1d966d970090fa3f1bea69666"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/benchmark.json",
+      "sha256": "94089a0c180b39d1185048b47f708c4b73510f2ccd0f9bc559fb231abd28da9e"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/summary.json",
+      "sha256": "26ed4fefc86435cb37efa44d0d3ea383db3ff1518e8e4678ecf3a353941e12b1"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/telemetry-100ms.csv",
+      "sha256": "eb667337100e0959ff662c2a7915a074286ec03a5d7e5d412f83ab3d7d34e26f"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/trial-1.json",
+      "sha256": "990bc6bf07bdbf301ed527b6fd9ffbd68f92b2b34f9368da442ddf8078475346"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/trial-2.json",
+      "sha256": "bb08593039d90de36fc4e218522efcc9d9a2ff5798ae831710b5b4fa3452cf2a"
+    },
+    {
+      "path": "results/locked-continuous-power-20261020-165500/trial-3.json",
+      "sha256": "a22cbc9c4781ba97628739ed70fdc59b59b51c131c5d89eb550a81e7c135c32f"
+    },
+    {
+      "path": "results/rtx3080ti-post-unlock-run05-596.02.json",
+      "sha256": "00bc913e43115be8a4560df597bd058467a939bc9d8305bd5b10c9d4013bac03"
+    },
+    {
+      "path": "results/rtx3080ti-pre-unlock-596.02.json",
+      "sha256": "83608a5da5813d286e14e28e14a055555760982afc6ddc3507d19e6c23f0c61a"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/benchmark.json",
+      "sha256": "a04b793c90ecbf57edf134740cbbdcd5a7bebb56206c7bd1553cc0fa4e84f652"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/summary.json",
+      "sha256": "fcee33625d4d30eaaafaa831f72344240e5793689a0c8448e0dd1a6d61f2b58e"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/telemetry-100ms.csv",
+      "sha256": "3da9f020b98b91fe2e4952be1a594586de46b7465ed13be6f6fc8d008eb9b239"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/trial-1.json",
+      "sha256": "45382dfbee7af2d088588eec4bd1d5e0d2465b8fc12bb440187b4cddb691a24f"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/trial-2.json",
+      "sha256": "8e68ade34a1569dcd1913496bf96ed156886f23bef77122590debceadf1217fa"
+    },
+    {
+      "path": "results/run05-continuous-power-20261020-164548/trial-3.json",
+      "sha256": "831706a248fb6a3742cf3fed0dd5b59c992216fdb70c81163cd7305b1fff5590"
+    },
+    {
+      "path": "test.cmd",
+      "sha256": "4ea5ececb472197ac0000e30fe20a162b5e1e891ed0808af809fb81c532c2852"
+    },
+    {
+      "path": "test_core.c",
+      "sha256": "1c150c11b58aed20fd254591e67acfd7b6e175d47e9ff5ea56e457ff28794492"
+    },
+    {
+      "path": "tools/extract_boot_assets_595.py",
+      "sha256": "df775c2a0bf41f4a86f12947a77359584fc56782a6cb10e9698ebdf819d9eb60"
+    },
+    {
+      "path": "tools/generate_v67_595.py",
+      "sha256": "fe8b0e04ad8af70745199cfa27f47b585a1a1f1cd88265ea7ae769b03d001ad1"
+    },
+    {
+      "path": "tools/make_profile.ps1",
+      "sha256": "0bb20c889cef3c1580d3d0383903685fbabd9dc9009d3c1511fa11600943f12c"
+    },
+    {
+      "path": "tools/package_usb.py",
+      "sha256": "acfc6263a81caa6794fd970dc31272f431d4be9a6a2ba2dd0d4358909de82e33"
+    },
+    {
+      "path": "tools/profile_tool.py",
+      "sha256": "4cc9eed0024ba59a8c40ce3dbf5826e1f629aea9058c7b26acbbdaa1707499f8"
+    },
+    {
+      "path": "tools/source_manifest.py",
+      "sha256": "1157cb3cbb7c10ae706e398e74fcacd3428e3f30668fd8a45e3efb9a6cf18d67"
+    },
+    {
+      "path": "tools/test_package_usb.py",
+      "sha256": "5e074a66783299a8da8d5eab548a04f9dc327f5d35da32bd4ac57d5b96a7ed4d"
+    },
+    {
+      "path": "tools/test_profile_tool.py",
+      "sha256": "f948a77909dd71c6895f3c5b8dfd24dabc01e22946f020b3b2780a84ee3f1eed"
+    },
+    {
+      "path": "unlock/app.c",
+      "sha256": "72c589e278d69d22b7f5a8c57ee8eefd43f125dc8917a44bb8b56e3b68a3067b"
+    },
+    {
+      "path": "unlock/app.h",
+      "sha256": "fc1aff4f479dfe0a3191927b3d76c55fc1f2bd8d0bc8a46b9fd84e02050f9e7b"
+    },
+    {
+      "path": "unlock/app_io.c",
+      "sha256": "f759ad8a6c3c310d62a1619ba3827cfa25a7e6d2e7f597746bfdec1ee1d875bc"
+    },
+    {
+      "path": "unlock/app_io.h",
+      "sha256": "8bc26d9091c243aa8cf09f5d6a8628f47721cabe8a453062f14fc4e9f055fce4"
+    },
+    {
+      "path": "unlock/assets.json",
+      "sha256": "2ad48dca73440002a8b0ef61570ad44a23d95d8e2abfa2f23c5791b3e0782657"
+    },
+    {
+      "path": "unlock/boot.c",
+      "sha256": "06dfb9015a5006982cffe12902dca8c5b9be1a8c0636ed726554a6d24cf32e91"
+    },
+    {
+      "path": "unlock/boot.h",
+      "sha256": "456d9c86ca317262918774e0aac1e97d1c6fed1f8a7c0e83d1b38f475af13bba"
+    },
+    {
+      "path": "unlock/build.ps1",
+      "sha256": "f6efe0d36625b0ad82b9c9c96221b0ba005f493e219e900e6513135f2945f34b"
+    },
+    {
+      "path": "unlock/checks.c",
+      "sha256": "3a7f247f3f6b84b5dd344a40f31aabcd918f14fd3c46875784291d920b7d611b"
+    },
+    {
+      "path": "unlock/checks.h",
+      "sha256": "04fd36000c91b37577620f07ac14ac2d237c1eb0203a47c9e7170c2dd77e92a1"
+    },
+    {
+      "path": "unlock/compat.c",
+      "sha256": "6fd7ee9e8e6942b019a79060bcd5faa8315fccd5fe6d0fc5f7d85bf9cf87f7f1"
+    },
+    {
+      "path": "unlock/compat/compat.h",
+      "sha256": "62a7880e7fbc34b59d53b7c1b6922047f41bb9a047dfa99db275b62d307e9d6d"
+    },
+    {
+      "path": "unlock/compat/linux/aperture.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/delay.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/dma-mapping.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/errno.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/firmware.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/io.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/module.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/pci.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/printk.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/slab.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/string.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/timekeeping.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/compat/linux/types.h",
+      "sha256": "6a7f9e48543f92e269e2a52b77b96575a9abbe3757477533442c54ab43e11bd4"
+    },
+    {
+      "path": "unlock/format.c",
+      "sha256": "564fc2cb36cac9580983121dc8b48f33773e264507c4b90aed140ba9abb2a2b9"
+    },
+    {
+      "path": "unlock/format.h",
+      "sha256": "03b8c257be5f78462d006d8563cea9a623d7b6d5fe50e793e021ca9077330417"
+    },
+    {
+      "path": "unlock/ownership.c",
+      "sha256": "99f43a557c4506796a4eaa06cc46c44b3c79e0e7db39980ab8f1ae8904f2a2e8"
+    },
+    {
+      "path": "unlock/ownership.h",
+      "sha256": "c44b0b7c8d96ad6a13872deab36802a0a0b2c86f3bbb13d60a7026f8d8726067"
+    },
+    {
+      "path": "unlock/port.c",
+      "sha256": "7dd1384743ae48d7a25c9482be436385eaa8c979ef8e29a920fd076f08b36942"
+    },
+    {
+      "path": "unlock/port.h",
+      "sha256": "2650330cb8c9332b1aa264674e987217c15822dc4badc9325deaa677295f8067"
+    },
+    {
+      "path": "unlock/runtime.c",
+      "sha256": "0f25ae89a31c5fc76ade8e39e07e0a47b634ae33969d40eef72673b517ea11b1"
+    },
+    {
+      "path": "unlock/runtime.h",
+      "sha256": "da642d486d61f6600ced44bc5efad0bd95eba9e2a9a313f0a90f5aad81e6587e"
+    },
+    {
+      "path": "unlock/sha256.c",
+      "sha256": "5b707487e2aef3e582d689e36e1650b7f017180991c841dcd0cc2d115cdda567"
+    },
+    {
+      "path": "unlock/sha256.h",
+      "sha256": "d58d123865b2df9c425ebea850d4c802e8c8fc1e0b6a0ce88a457c1535e11830"
+    },
+    {
+      "path": "unlock/test-3080ti-profile.cmd",
+      "sha256": "43f571e49851d57e4fb1ef239bfec8eb2a2118f2031bcbbfd455791a0eb7ccf4"
+    },
+    {
+      "path": "unlock/test-all.ps1",
+      "sha256": "69cc8a418c9341d5d96190d9fad3bb097871415aa8a7d9303db386ecb3ab8dcb"
+    },
+    {
+      "path": "unlock/test-app-current.cmd",
+      "sha256": "09661a11719173b61bd456d93b49767146c3e5dd175d67056475794466e961f8"
+    },
+    {
+      "path": "unlock/test-app.cmd",
+      "sha256": "820c13961339a17ff08f136e1edcfdfea6e19bb000f73f44ea28fb28469df80e"
+    },
+    {
+      "path": "unlock/test-checks.cmd",
+      "sha256": "7ef004994055e6521ad282d294d18aae434e3cf7dc006eb9d557360b752156c2"
+    },
+    {
+      "path": "unlock/test-efi-transaction.cmd",
+      "sha256": "5d0f0227398538998957a49b746f24a1145b50be472ef9c95aa7d68959f2854b"
+    },
+    {
+      "path": "unlock/test-fwsec-sequence.cmd",
+      "sha256": "2c4604241c6037b388cb3a25e17fe2cf82264ac942a159d950bfb7537ee85706"
+    },
+    {
+      "path": "unlock/test-master-attributes.cmd",
+      "sha256": "ce4106e14d6b8bfdebf2e491c8d8aa4173252d88b6e80d5121be83e5f8c51de4"
+    },
+    {
+      "path": "unlock/test-port.cmd",
+      "sha256": "42ba444b865f7b36f1cc842bf895c8780f3ef65cec2bbcbec6f29602effa7cbc"
+    },
+    {
+      "path": "unlock/test-runtime.cmd",
+      "sha256": "62b60ae81eecae177e4b74c5b02e431d1cdbe919cab799dd5add3ab573c14128"
+    },
+    {
+      "path": "unlock/test-sha.cmd",
+      "sha256": "592208f7db7d5020e0b766d68c69f2e19b0e82d3c24cd0992b9b7dff4d1b664c"
+    },
+    {
+      "path": "unlock/test-transaction.cmd",
+      "sha256": "19f51e4cbfc534d03091d22df7f4736dd1dca6b874cdf8405b2d1a5dd44c1b96"
+    },
+    {
+      "path": "unlock/tests/check_fwsec_sequence.py",
+      "sha256": "753ef8eea8def6f19a849d3bfe9ae6f3b93cbbdb55261b2abf4eed41eb9cac63"
+    },
+    {
+      "path": "unlock/tests/gu_profile_generated.h",
+      "sha256": "dee9f850d7506a6bd78cb911b06cebb6da06c2e5af41771ccc1ffa40a6b21698"
+    },
+    {
+      "path": "unlock/tests/reference/unlock_610_v06.c",
+      "sha256": "1440f0d0c974b8f1d985f48b5852be7287abe10bc66d468fca3833e3cdbc9bab"
+    },
+    {
+      "path": "unlock/tests/test_3080ti_profile.c",
+      "sha256": "12d66634326e956edd8cf99f14039254b0ebfcd11c01c4004fbfa857c9c7217e"
+    },
+    {
+      "path": "unlock/tests/test_app.c",
+      "sha256": "5473c0ed589305926a1cec979663fa928505edf331c48693d6a0a5384ce08da7"
+    },
+    {
+      "path": "unlock/tests/test_checks.c",
+      "sha256": "86986f1f33552eb9a96f94d16e267eb434c5cdc5a16f9421137d608274ca83bc"
+    },
+    {
+      "path": "unlock/tests/test_efi_transaction.c",
+      "sha256": "ac3dde78fa461248c061d218e78c870c63b30d776b2b37d95a3f79c268de010b"
+    },
+    {
+      "path": "unlock/tests/test_fwsec_trace.c",
+      "sha256": "86e232a19ef58bddb97a337458685b9cd215fb2f68ec7963a847062062a04d72"
+    },
+    {
+      "path": "unlock/tests/test_master_attributes.c",
+      "sha256": "a3e5a85804f19b2c26915d743d57f104537b8a737edf733730bb3db743a4c071"
+    },
+    {
+      "path": "unlock/tests/test_pe.py",
+      "sha256": "4499a6b6d03e04cbe699c3f19b106bfb7bdbd6bf188210dce3f6c234683341de"
+    },
+    {
+      "path": "unlock/tests/test_port.c",
+      "sha256": "d01264fd0143acdd71adb448ff3e44b6c32a472185f3ad038934fa054ae9bf31"
+    },
+    {
+      "path": "unlock/tests/test_runtime.c",
+      "sha256": "a2dd350fa47ad9a2cc5070f248c3165a697ed99d0eabad5d195d136a62fe9bc2"
+    },
+    {
+      "path": "unlock/tests/test_sha256.c",
+      "sha256": "a296e43bcd285d9ed2933ef03c0375eb0f00fc30d3881fc8e4ab666179c1ebe7"
+    },
+    {
+      "path": "unlock/tests/test_transaction_3080.c",
+      "sha256": "9e81b7621f8320b05b3e66b8155025c9ac278a7fe49addd6cc0f6a95d6c10b21"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/compat.h",
+      "sha256": "49cbc93761e43e675975c96501e036185a04f06cf452fd38d6b7d8153d643fb4"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/aperture.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/delay.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/dma-mapping.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/errno.h",
+      "sha256": "4f2cc119124257d1bb66b0ee4bbde929067116355a18408b19eb9c587ba8c75a"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/firmware.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/io.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/module.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/pci.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/printk.h",
+      "sha256": "e288b1ef8fdbdda66d052087315b68bb5f6b3ebaa33153177389639ab9beea6f"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/slab.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/string.h",
+      "sha256": "1746b8e3bc86ab15105e78ffb7bff9a8b0136756101306f5322281b63d6f1acc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/timekeeping.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/linux/types.h",
+      "sha256": "79c6c41125fc69f2775a4b14aa894497ab980794c995bec7e1226f68a6386ecc"
+    },
+    {
+      "path": "unlock/tests/transaction_shim/vbios_fixture.h",
+      "sha256": "485cbd790ef7e2971bb252cbc9461d3c98bebdb69beeb6d4eaa7b7edb7bcf12b"
+    },
+    {
+      "path": "unlock/vendor/diagnostic.h",
+      "sha256": "055ef365611467aecbb083480f055de5d16c7500f42aa3d47a8025c8690e4baf"
+    },
+    {
+      "path": "unlock/vendor/gfw_eval.c",
+      "sha256": "7664023b97719ba4ae4a7ad11a82de9a3ace72a2dcf308274aaf61d3ecbf7210"
+    },
+    {
+      "path": "unlock/vendor/gfw_eval.h",
+      "sha256": "cdd9f1db2343d4f4f8d0ee16ea9e7abb3da1d2f2cf6857e704be98399e4adfdd"
+    },
+    {
+      "path": "unlock/vendor/layout_610.c",
+      "sha256": "349eac5f12127aa367abe812e85e0ba7862d11cef9fccff7232a0d7add8f2749"
+    },
+    {
+      "path": "unlock/vendor/layout_610.h",
+      "sha256": "62b1228ba75d9ca717c2a4cb95d1339e44dccb9eb5b99b831cb7837228a72b4a"
+    },
+    {
+      "path": "unlock/vendor/prep_610.c",
+      "sha256": "a041220dd2a68fe391bcf4a6323bcc9fefeea4f9ab46b076a20d628c0f0a8851"
+    },
+    {
+      "path": "unlock/vendor/prep_610.h",
+      "sha256": "ad08f934b950101ae9580bad27958d8ff95a8b9d848fc30b6dfad5eca0beb215"
+    },
+    {
+      "path": "unlock/vendor/unlock_610.c",
+      "sha256": "28ba99be6f4a13e2b4892329d3d40af615261b2028bd725aaae6f2ae24d23faf"
+    },
+    {
+      "path": "unlock/vendor/unlock_610.h",
+      "sha256": "f128929635727a578b0b765d6f74162d0f4e45c131ac860d4a8d7a8ad6e768f6"
+    },
+    {
+      "path": "unlock/vendor/vbios_610.c",
+      "sha256": "fa1a1a26ab54409010d490112a5b4503c6c72d4775e2f9b465c806f28266165f"
+    },
+    {
+      "path": "unlock/vendor/vbios_610.h",
+      "sha256": "f433a1c27946047db74839813e65f538ffa4edd468117c08b889886d8031aabc"
+    },
+    {
+      "path": "unlock/verify_pe.py",
+      "sha256": "012e0dbbf406818182a88828ae9be86ea09f55ee8091fe19ddc56e44cd65e328"
+    }
+  ]
+}

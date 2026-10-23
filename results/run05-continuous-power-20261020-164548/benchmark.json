@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "stage": "post-unlock-run05-continuous-power",
+  "measured_local": "2026-10-20T16:46:09.0957505+09:00",
+  "driver": "596.02",
+  "telemetry_interval_ms": 100,
+  "method": "Same executable; 4096x4096 GEMM; 2 s warmup and 30 CUDA-event samples per precision; three process trials; nvidia-smi telemetry sampled continuously at 100 ms.",
+  "executable": "analysis/compute-benchmark-3080ti.exe",
+  "executable_sha256": "B4C0BDECD6181C0D449460EE860C5C8DA3E0F422CA8AFF289B6B1513BE396DF8",
+  "trials": [
+    {
+      "trial": 1,
+      "elapsed_seconds": 6.564,
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {
+            "name": "fp32_pedantic",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 5.582352,
+            "min_ms": 5.006336,
+            "max_ms": 6.423552,
+            "gflops": 24620.259,
+            "reference_checked": true
+          },
+          {
+            "name": "fp16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.052672,
+            "min_ms": 1.048576,
+            "max_ms": 1.53088,
+            "gflops": 130561.989,
+            "reference_checked": true
+          },
+          {
+            "name": "bf16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.034752,
+            "min_ms": 1.031168,
+            "max_ms": 1.483776,
+            "gflops": 132823.084,
+            "reference_checked": true
+          }
+        ]
+      }
+    },
+    {
+      "trial": 2,
+      "elapsed_seconds": 6.493,
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {
+            "name": "fp32_pedantic",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 5.540864,
+            "min_ms": 5.120896,
+            "max_ms": 6.15312,
+            "gflops": 24804.607,
+            "reference_checked": true
+          },
+          {
+            "name": "fp16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.057792,
+            "min_ms": 1.052672,
+            "max_ms": 1.498112,
+            "gflops": 129930.043,
+            "reference_checked": true
+          },
+          {
+            "name": "bf16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.041248,
+            "min_ms": 1.033216,
+            "max_ms": 1.482688,
+            "gflops": 131994.451,
+            "reference_checked": true
+          }
+        ]
+      }
+    },
+    {
+      "trial": 3,
+      "elapsed_seconds": 6.51,
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {
+            "name": "fp32_pedantic",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 5.597184,
+            "min_ms": 5.122048,
+            "max_ms": 6.367232,
+            "gflops": 24555.017,
+            "reference_checked": true
+          },
+          {
+            "name": "fp16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.063936,
+            "min_ms": 1.055744,
+            "max_ms": 1.596416,
+            "gflops": 129179.72,
+            "reference_checked": true
+          },
+          {
+            "name": "bf16_tensor_fp32_accumulate",
+            "n": 4096,
+            "samples": 30,
+            "warmup_seconds": 2,
+            "median_ms": 1.0428,
+            "min_ms": 1.0384,
+            "max_ms": 1.796096,
+            "gflops": 131798.005,
+            "reference_checked": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "telemetry_interval_requested_ms": 100,
+  "sample_count": 192,
+  "first_timestamp": "2026-10-20T16:45:48.768",
+  "last_timestamp": "2026-10-20T16:46:09.008",
+  "duration_seconds": 20.24,
+  "power": {
+    "overall_average_w": 334.39,
+    "overall_maximum_w": 398.02,
+    "p95_w": 395.41,
+    "p99_w": 398.02,
+    "minimum_w": 140.98,
+    "gpu_load_filter": "utilization.gpu >= 90%",
+    "gpu_load_sample_count": 172,
+    "gpu_load_average_w": 344.89,
+    "gpu_load_maximum_w": 398.02,
+    "high_power_filter": "power.draw >= 250 W",
+    "high_power_sample_count": 177,
+    "high_power_average_w": 348.34,
+    "power_limit_w": 400.0
+  },
+  "temperature": {
+    "maximum_c": 78.0
+  },
+  "clock": {
+    "maximum_sm_mhz": 1980.0,
+    "average_sm_under_gpu_load_mhz": 1909.4
+  },
+  "performance_median_tflops": {
+    "fp32_pedantic": 24.620259,
+    "fp16_tensor_fp32_accumulate": 129.930043,
+    "bf16_tensor_fp32_accumulate": 131.994451
+  },
+  "notes": [
+    "Overall average includes the initial idle sample window and transitions between benchmark processes.",
+    "GPU-load average includes samples whose reported GPU utilization was at least 90 percent.",
+    "nvidia-smi power.draw is sampled telemetry, not an external wall-power measurement."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "stage": "post-unlock-run05",
+  "measured_local": "2026-10-20T16:40:24.0718021+09:00",
+  "driver": "596.02",
+  "method": "Same executable; 4096x4096 GEMM; 2 s warmup and 30 CUDA-event samples per precision; summary is median of three process medians.",
+  "executable": "analysis/compute-benchmark-3080ti.exe",
+  "executable_sha256": "B4C0BDECD6181C0D449460EE860C5C8DA3E0F422CA8AFF289B6B1513BE396DF8",
+  "baseline_file": "results/rtx3080ti-pre-unlock-596.02.json",
+  "summary": [
+    {
+      "name": "fp32_pedantic",
+      "median_tflops": 24.417097,
+      "min_tflops": 24.379189,
+      "max_tflops": 24.487817,
+      "trials_tflops": [24.487817, 24.417097, 24.379189],
+      "baseline_median_tflops": 23.776392,
+      "change_percent": 2.69
+    },
+    {
+      "name": "fp16_tensor_fp32_accumulate",
+      "median_tflops": 129.247754,
+      "min_tflops": 129.072961,
+      "max_tflops": 130.132779,
+      "trials_tflops": [130.132779, 129.072961, 129.247754],
+      "baseline_median_tflops": 70.494243,
+      "change_percent": 83.34
+    },
+    {
+      "name": "bf16_tensor_fp32_accumulate",
+      "median_tflops": 131.795987,
+      "min_tflops": 131.783844,
+      "max_tflops": 132.039091,
+      "trials_tflops": [131.783844, 131.795987, 132.039091],
+      "baseline_median_tflops": 70.418537,
+      "change_percent": 87.16
+    }
+  ],
+  "trials": [
+    {
+      "trial": 1,
+      "elapsed_seconds": 7.063,
+      "telemetry_before": "2026/10/20 16:40:03.759, P0, 63, 142.59, 400.00, 1830, 9501, 4, 35",
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {"name": "fp32_pedantic", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 5.612544, "min_ms": 5.110784, "max_ms": 6.270976, "gflops": 24487.817, "reference_checked": true},
+          {"name": "fp16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.056144, "min_ms": 1.051648, "max_ms": 1.557504, "gflops": 130132.779, "reference_checked": true},
+          {"name": "bf16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.042912, "min_ms": 1.037312, "max_ms": 1.55136, "gflops": 131783.844, "reference_checked": true}
+        ]
+      },
+      "telemetry_after": "2026/10/20 16:40:10.873, P2, 78, 392.69, 400.00, 1950, 9251, 98, 53"
+    },
+    {
+      "trial": 2,
+      "elapsed_seconds": 6.495,
+      "telemetry_before": "2026/10/20 16:40:10.933, P2, 78, 392.69, 400.00, 1950, 9251, 98, 53",
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {"name": "fp32_pedantic", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 5.6288, "min_ms": 5.151488, "max_ms": 6.052864, "gflops": 24417.097, "reference_checked": true},
+          {"name": "fp16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.064816, "min_ms": 1.052672, "max_ms": 1.549312, "gflops": 129072.961, "reference_checked": true},
+          {"name": "bf16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.042816, "min_ms": 1.032192, "max_ms": 1.520416, "gflops": 131795.987, "reference_checked": true}
+        ]
+      },
+      "telemetry_after": "2026/10/20 16:40:17.476, P0, 78, 382.99, 400.00, 1950, 9501, 98, 69"
+    },
+    {
+      "trial": 3,
+      "elapsed_seconds": 6.489,
+      "telemetry_before": "2026/10/20 16:40:17.521, P0, 78, 382.99, 400.00, 1950, 9501, 98, 70",
+      "measurement": {
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "compute_capability": "8.6",
+        "cuda_runtime": 12080,
+        "cuda_driver_api": 13020,
+        "cublas": 120803,
+        "benchmarks": [
+          {"name": "fp32_pedantic", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 5.637552, "min_ms": 5.07904, "max_ms": 6.572864, "gflops": 24379.189, "reference_checked": true},
+          {"name": "fp16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.063376, "min_ms": 1.05984, "max_ms": 1.561344, "gflops": 129247.754, "reference_checked": true},
+          {"name": "bf16_tensor_fp32_accumulate", "n": 4096, "samples": 30, "warmup_seconds": 2, "median_ms": 1.040896, "min_ms": 1.038208, "max_ms": 1.743872, "gflops": 132039.091, "reference_checked": true}
+        ]
+      },
+      "telemetry_after": "2026/10/20 16:40:24.063, P2, 80, 397.17, 400.00, 1950, 9251, 94, 74"
+    }
+  ]
+}

@@ -1,0 +1,382 @@
+#include "../checks.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static unsigned Checks, Failures;
+
+static void Check(int Pass, const char *Name) {
+  ++Checks;
+  if (!Pass) {
+    ++Failures;
+    fprintf(stderr, "FAIL %s\n", Name);
+  }
+}
+
+static void Byte(UINT32 C[64], unsigned Offset, unsigned Value) {
+  unsigned Shift = (Offset & 3U) * 8U;
+  C[Offset / 4U] = (C[Offset / 4U] & ~(0xffU << Shift)) |
+                  ((Value & 0xffU) << Shift);
+}
+
+static void Word(UINT32 C[64], unsigned Offset, unsigned Value) {
+  Byte(C, Offset, Value);
+  Byte(C, Offset + 1U, Value >> 8U);
+}
+
+static void Basic(UINT32 C[64]) {
+  memset(C, 0, 256);
+  C[0] = GU_BOARD_ID;
+  C[1] = 0x00100002;
+  C[2] = 0x030000a1;
+  C[3] = 0x00800000;
+  C[0x2c / 4] = GU_BOARD_SUBSYSTEM;
+  C[0x34 / 4] = 0x40;
+  C[0x40 / 4] = 0x00034801;
+  C[0x48 / 4] = 0x00020010;
+  C[0x4c / 4] = 0x10000000;
+}
+
+static int Valid(const UINT32 C[64]) {
+  GU_CAPS Caps;
+  return GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS,
+                       GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps);
+}
+
+static void Reject(const UINT32 C[64], const char *Name) {
+  GU_CAPS Caps = {0xffff, 0xffff, 0xffff, 0xffff, 0xff};
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS,
+                       GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps), Name);
+  Check(Caps.pm == 0 && Caps.pcie == 0 && Caps.msi == 0 && Caps.msix == 0 &&
+        Caps.pcie_version == 0, "rejection clears capability output");
+}
+
+static int LoadCapture(const char *Path, UINT32 C[64]) {
+  FILE *File = fopen(Path, "rb");
+  char Line[256];
+  unsigned Count = 0;
+  unsigned long long Offset, Value;
+  if (File == NULL) {
+    fprintf(stderr, "cannot open fixture %s\n", Path);
+    return 0;
+  }
+  while (fgets(Line, sizeof(Line), File) != NULL) {
+    if (sscanf(Line, "config_offset=0x%llx", &Offset) != 1) continue;
+    if (Count >= 64 || Offset != Count * 4U ||
+        fgets(Line, sizeof(Line), File) == NULL ||
+        sscanf(Line, "value=0x%llx", &Value) != 1 || Value > 0xffffffffULL) {
+      fclose(File);
+      fprintf(stderr, "malformed config fixture\n");
+      return 0;
+    }
+    C[Count++] = (UINT32)Value;
+  }
+  fclose(File);
+  if (Count != 64) fprintf(stderr, "fixture has %u config dwords, expected 64\n", Count);
+  return Count == 64;
+}
+
+static void TestCapture(const UINT32 Captured[64]) {
+  UINT32 C[64], Before[64];
+  GU_CAPS Caps;
+  memcpy(C, Captured, sizeof(C));
+  memcpy(Before, C, sizeof(C));
+  Check(GuCheckConfigEx(C, GU_BOARD_SEGMENT, GU_BOARD_BUS, GU_BOARD_DEVICE,
+        GU_BOARD_FUNCTION, TRUE, &Caps), "captured RTX 3080 Ti config accepted with active GOP BME");
+  Check(Caps.pm == 0x60 && Caps.msi == 0x68 && Caps.pcie == 0x78 &&
+        Caps.msix == 0 && Caps.pcie_version == 2,
+        "capture returns linked caps only; c8 is unlinked");
+  Check(memcmp(C, Before, sizeof(C)) == 0, "validation does not modify config");
+  Byte(C, 0xb5, 0xc8);
+  Check(GuCheckConfigEx(C, GU_BOARD_SEGMENT, GU_BOARD_BUS, GU_BOARD_DEVICE,
+        GU_BOARD_FUNCTION, TRUE, &Caps) && Caps.msix == 0xc8,
+        "synthetically linked captured MSI-X is disabled and accepted");
+  Word(C, 0xca, 0x8005);
+  Reject(C, "linked enabled MSI-X rejected");
+}
+
+static void TestIdentity(void) {
+  static const struct { unsigned Offset, Value; const char *Name; } Mutations[] = {
+    {0, 0xdf, "wrong PCI vendor rejected"},
+    {2, 0x07, "wrong PCI device rejected"},
+    {0x2c, 0x63, "wrong subsystem vendor rejected"},
+    {0x2e, 0x91, "wrong subsystem device rejected"},
+    {0x0b, 0x04, "non-display class rejected"},
+    {0x0e, 0x81, "bridge header rejected"},
+    {0x04, 0x00, "memory decode off rejected"},
+    {0x04, 0x06, "bus mastering on rejected"},
+    {0x30, 0x01, "ROM decode on rejected"},
+    {0x06, 0x00, "absent capability-list status rejected"},
+    {0x34, 0x00, "missing first capability rejected"},
+    {0x34, 0x3c, "first capability in header rejected"},
+    {0x34, 0x41, "unaligned first capability rejected"},
+    {0x34, 0xff, "out-of-range first capability rejected"}
+  };
+  UINT32 C[64];
+  GU_CAPS Caps;
+  unsigned I;
+  Basic(C);
+  Check(Valid(C), "minimal PM and PCIe config accepted");
+  C[3] = 0;
+  Check(Valid(C), "single-function normal header accepted");
+  for (I = 0; I < sizeof(Mutations) / sizeof(Mutations[0]); ++I) {
+    Basic(C);
+    Byte(C, Mutations[I].Offset, Mutations[I].Value);
+    Reject(C, Mutations[I].Name);
+  }
+  Basic(C);
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT ^ 1U, GU_BOARD_BUS,
+        GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps), "wrong segment rejected");
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT, (GU_BOARD_BUS + 1U) & 0xffU,
+        GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps), "wrong bus rejected");
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS,
+        (GU_BOARD_DEVICE + 1U) & 31U, GU_BOARD_FUNCTION, &Caps), "wrong device location rejected");
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS, GU_BOARD_DEVICE,
+        (GU_BOARD_FUNCTION + 1U) & 7U, &Caps), "wrong function location rejected");
+  Check(!GuCheckConfig(NULL, GU_BOARD_SEGMENT, GU_BOARD_BUS, GU_BOARD_DEVICE,
+        GU_BOARD_FUNCTION, &Caps), "null config rejected");
+  Check(!GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS, GU_BOARD_DEVICE,
+        GU_BOARD_FUNCTION, NULL), "null output rejected");
+}
+
+static void TestPowerAndPcie(void) {
+  UINT32 C[64];
+  unsigned I;
+  for (I = 1; I <= 3; ++I) {
+    Basic(C);
+    Word(C, 0x44, I);
+    Reject(C, "PM states D1/D2/D3 rejected");
+  }
+  Basic(C); Byte(C, 0x34, 0x48);
+  Reject(C, "missing PM rejected");
+  Basic(C); Byte(C, 0x41, 0);
+  Reject(C, "missing PCIe rejected");
+  Basic(C); Word(C, 0x42, 0);
+  Reject(C, "reserved PM version rejected");
+  Basic(C); Word(C, 0x42, 4);
+  Reject(C, "unsupported PM version rejected");
+  for (I = 1; I <= 2; ++I) {
+    Basic(C); Word(C, 0x4a, I);
+    Check(Valid(C), "PCIe endpoint version 1/2 accepted");
+    Word(C, 0x4a, 0x10 | I);
+    Check(Valid(C), "PCIe legacy endpoint version 1/2 accepted");
+  }
+  Basic(C); Word(C, 0x4a, 0);
+  Reject(C, "PCIe version zero rejected");
+  Basic(C); Word(C, 0x4a, 3);
+  Reject(C, "unsupported PCIe version rejected");
+  for (I = 2; I <= 15; ++I) {
+    Basic(C); Word(C, 0x4a, (I << 4) | 2);
+    Reject(C, "non-endpoint PCIe type rejected");
+  }
+  Basic(C); C[0x4c / 4] = 0;
+  Reject(C, "absent FLR support rejected");
+  Basic(C); Word(C, 0x50, 0x8000);
+  Reject(C, "asserted FLR initiate bit rejected");
+}
+
+static void TestCapabilities(void) {
+  UINT32 C[64];
+  GU_CAPS Caps;
+  unsigned I;
+  static const unsigned BadPointers[] = {0x3c, 0x41, 0x49, 0xff};
+  static const unsigned MsiControl[] = {0, 0x80, 0x100, 0x180};
+  for (I = 0; I < sizeof(BadPointers) / sizeof(BadPointers[0]); ++I) {
+    Basic(C); Byte(C, 0x41, BadPointers[I]);
+    Reject(C, "malformed next capability pointer rejected");
+  }
+  Basic(C); Byte(C, 0x41, 0x40);
+  Reject(C, "self-referential capability rejected");
+  Basic(C); Byte(C, 0x49, 0x40);
+  Reject(C, "cyclic capability list rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x00030001;
+  Reject(C, "duplicate PM rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x00020010;
+  C[0x94 / 4] = 0x10000000;
+  Reject(C, "duplicate PCIe rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x0000b005;
+  C[0xb0 / 4] = 0x00000005;
+  Reject(C, "duplicate MSI rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x0000b011;
+  C[0xb0 / 4] = 0x00000011;
+  Reject(C, "duplicate MSI-X rejected");
+  for (I = 0; I < sizeof(MsiControl) / sizeof(MsiControl[0]); ++I) {
+    Basic(C); Byte(C, 0x49, 0x90);
+    C[0x90 / 4] = (MsiControl[I] << 16) | 5;
+    Check(GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS,
+          GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps) && Caps.msi == 0x90,
+          "disabled 32/64-bit MSI with/without masks accepted");
+    Word(C, 0x92, MsiControl[I] | 1);
+    Reject(C, "enabled MSI rejected for each layout");
+  }
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x40000011;
+  Check(GuCheckConfig(C, GU_BOARD_SEGMENT, GU_BOARD_BUS,
+        GU_BOARD_DEVICE, GU_BOARD_FUNCTION, &Caps) && Caps.msix == 0x90,
+        "disabled and function-masked MSI-X accepted");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x00040009;
+  Check(Valid(C), "bounded vendor capability accepted");
+  Byte(C, 0x92, 0);
+  Reject(C, "zero vendor capability length rejected");
+  Byte(C, 0x92, 2);
+  Reject(C, "short vendor capability length rejected");
+  Byte(C, 0x92, 0x71);
+  Reject(C, "vendor capability past config end rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x000000ff;
+  Reject(C, "unsupported capability format fails closed");
+  Basic(C); Byte(C, 0x49, 0x50); C[0x50 / 4] = 0x00040009;
+  Reject(C, "capability overlapping PCIe body rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x0020a009;
+  C[0xa0 / 4] = 0x00000005;
+  Reject(C, "capability overlapping vendor body rejected");
+  Basic(C); Byte(C, 0x49, 0x90); C[0x90 / 4] = 0x0180a405;
+  C[0xa4 / 4] = 0x00000011;
+  Reject(C, "capability overlapping MSI pending-mask field rejected");
+  Basic(C); Byte(C, 0x34, 0xfc); C[0xfc / 4] = 0x00030001;
+  Reject(C, "truncated PM at end of config rejected");
+  Basic(C); Byte(C, 0x41, 0xc4); C[0xc4 / 4] = 0x00020010;
+  C[0xc8 / 4] = 0x10000000;
+  Check(Valid(C), "PCIe v2 ending at byte 256 accepted");
+  Byte(C, 0x41, 0xc8); C[0xc8 / 4] = 0x00020010;
+  C[0xcc / 4] = 0x10000000;
+  Reject(C, "PCIe v2 crossing byte 256 rejected");
+  Basic(C); Byte(C, 0x41, 0xec); C[0xec / 4] = 0x00010010;
+  C[0xf0 / 4] = 0x10000000;
+  Check(Valid(C), "PCIe v1 ending at byte 256 accepted");
+  Byte(C, 0x41, 0xf0); C[0xf0 / 4] = 0x00010010;
+  C[0xf4 / 4] = 0x10000000;
+  Reject(C, "PCIe v1 crossing byte 256 rejected");
+  Basic(C); Byte(C, 0x49, 0xf4); C[0xf4 / 4] = 0x00000005;
+  Check(Valid(C), "32-bit MSI fitting final 12 bytes accepted");
+  Word(C, 0xf6, 0x80);
+  Reject(C, "64-bit MSI truncated at end rejected");
+  Word(C, 0xf6, 0x100);
+  Reject(C, "MSI mask registers truncated at end rejected");
+  Basic(C); Byte(C, 0x49, 0xf4); C[0xf4 / 4] = 0x00000011;
+  Check(Valid(C), "MSI-X ending at byte 256 accepted");
+  Byte(C, 0x49, 0xf8); C[0xf8 / 4] = 0x00000011;
+  Reject(C, "MSI-X crossing byte 256 rejected");
+  Basic(C); Byte(C, 0x49, 0xfc); C[0xfc / 4] = 0x00040009;
+  Check(Valid(C), "vendor capability ending at byte 256 accepted");
+}
+
+static const UINT8 Intel[] = {
+  2,1,12,0, 0xd0,0x41,3,0x0a, 0,0,0,0,
+  1,1,6,0, 0,2,
+  2,3,8,0, 0x11,0x43,1,0x80,
+  0x7f,0xff,4,0
+};
+static const UINT8 Rtx[] = {
+  2,1,12,0, 0xd0,0x41,3,0x0a, 0,0,0,0,
+  1,1,6,0, GU_BOARD_ROOT_PORT_FUNCTION,GU_BOARD_ROOT_PORT_DEVICE,
+  1,1,6,0, GU_BOARD_FUNCTION,GU_BOARD_DEVICE,
+  0x7f,0xff,4,0
+};
+
+static int Path(const UINT8 *Bytes, UINTN Length) {
+  return GuDisplayPath((const EFI_DEVICE_PATH_PROTOCOL *)Bytes, Length);
+}
+
+static void TestPaths(void) {
+  UINT8 P[96];
+  unsigned I;
+  static const struct { unsigned Offset, Value; const char *Name; } Mutations[] = {
+    {0, 1, "non-ACPI root rejected"},
+    {1, 2, "expanded ACPI root rejected"},
+    {2, 0, "zero root length rejected"},
+    {2, 11, "short root length rejected"},
+    {2, 13, "long root length rejected"},
+    {3, 1, "oversized root length rejected"},
+    {4, 0xd1, "non-PNP root rejected"},
+    {6, 4, "unknown root HID rejected"},
+    {8, 1, "nonzero root UID rejected"},
+    {12, 3, "alien node before PCI route rejected"},
+    {13, 2, "non-PCI hardware route rejected"},
+    {14, 5, "short PCI node rejected"},
+    {14, 7, "long PCI node rejected"},
+    {16, 1, "Intel nonzero function rejected"},
+    {17, 3, "unknown root PCI device rejected"},
+    {18, 3, "alien trailing node rejected"},
+    {19, 1, "non-ADR trailing ACPI node rejected"},
+    {20, 4, "ADR without an address rejected"},
+    {20, 7, "partial ADR address rejected"},
+    {20, 9, "unaligned ADR length rejected"},
+    {20, 0xff, "oversized ADR rejected"},
+    {27, 1, "multi-instance terminator rejected"},
+    {28, 0, "zero end length rejected"},
+    {28, 3, "short end length rejected"},
+    {28, 5, "long end length rejected"}
+  };
+  Check(Path(Intel, sizeof(Intel)) == 1, "captured Intel GOP path accepted");
+  Check(Path(Rtx, sizeof(Rtx)) == 2, "captured RTX PCI path accepted");
+  Check(GuDisplayPath(NULL, 100) == 0, "null display path rejected");
+  for (I = 0; I < sizeof(Intel); ++I)
+    Check(Path(Intel, I) == 0, "every truncated Intel path rejected");
+  for (I = 0; I < sizeof(Rtx); ++I)
+    Check(Path(Rtx, I) == 0, "every truncated RTX path rejected");
+  for (I = 0; I < sizeof(Mutations) / sizeof(Mutations[0]); ++I) {
+    memcpy(P, Intel, sizeof(Intel));
+    P[Mutations[I].Offset] = (UINT8)Mutations[I].Value;
+    Check(Path(P, sizeof(Intel)) == 0, Mutations[I].Name);
+  }
+  memcpy(P, Intel, 18);
+  memcpy(P + 18, Intel + 26, 4);
+  Check(Path(P, 22) == 1, "Intel route without ADR accepted");
+  P[6] = 8;
+  Check(Path(P, 22) == 1, "PNP0A08 root accepted");
+  memcpy(P, Rtx, 24);
+  memcpy(P + 24, Intel + 18, 12);
+  P[28] = 0x40; P[29] = 0x03;
+  Check(Path(P, 36) == 2, "RTX route with output ADR accepted");
+  memcpy(P + 32, Intel + 18, 12);
+  Check(Path(P, 44) == 2, "multiple trailing ADR nodes accepted");
+  memcpy(P + 32, P + 28, 4);
+  P[26] = 12;
+  memcpy(P + 36, Intel + 26, 4);
+  Check(Path(P, 40) == 2, "multiple ADR entries in one node accepted");
+  memset(P + 40, 0xa5, sizeof(P) - 40);
+  Check(Path(P, sizeof(P)) == 2, "read bound may extend after end-entire");
+  memcpy(P, Rtx, sizeof(Rtx)); P[22] = 1;
+  Check(Path(P, sizeof(Rtx)) == 0, "RTX nonzero endpoint function rejected");
+  memcpy(P, Rtx, sizeof(Rtx)); P[16] = (UINT8)((GU_BOARD_ROOT_PORT_FUNCTION + 1U) & 7U);
+  Check(Path(P, sizeof(Rtx)) == 0, "RTX wrong root port function rejected");
+  memcpy(P, Rtx, sizeof(Rtx)); P[17] = (UINT8)((GU_BOARD_ROOT_PORT_DEVICE + 1U) & 31U);
+  Check(Path(P, sizeof(Rtx)) == 0, "RTX wrong root port device rejected");
+  memcpy(P, Rtx, sizeof(Rtx)); P[23] = (UINT8)((GU_BOARD_DEVICE + 1U) & 31U);
+  Check(Path(P, sizeof(Rtx)) == 0, "RTX wrong downstream device rejected");
+  memcpy(P, Rtx, 18); memcpy(P + 18, Rtx + 24, 4);
+  Check(Path(P, 22) ==
+        (GU_BOARD_ROOT_PORT_DEVICE == 2U && GU_BOARD_ROOT_PORT_FUNCTION == 0U ? 1 : 0),
+        "bridge-only path follows the unambiguous console-route policy");
+  memcpy(P, Rtx, 12); memcpy(P + 12, Rtx + 24, 4);
+  Check(Path(P, 16) == 0, "root-only path rejected");
+  memcpy(P, Intel, 12); memcpy(P + 12, Intel + 18, 12);
+  Check(Path(P, 24) == 0, "ADR before PCI rejected");
+  memcpy(P, Intel, 18); memcpy(P + 18, Rtx + 18, 10);
+  Check(Path(P, 28) ==
+        (GU_BOARD_ROOT_PORT_DEVICE == 2U && GU_BOARD_ROOT_PORT_FUNCTION == 0U ? 2 : 0),
+        "02.0 root collision is resolved by the complete two-node target route");
+  memcpy(P, Intel, 18); memcpy(P + 18, Intel, 12); memcpy(P + 30, Intel + 26, 4);
+  Check(Path(P, 34) == 0, "second ACPI root rejected");
+  memset(P, 0, sizeof(P));
+  Check(Path(P, sizeof(P)) == 0, "zero-filled path rejected");
+}
+
+int main(int Argc, char **Argv) {
+  UINT32 Captured[64];
+  if (Argc > 2) return 2;
+  if (Argc == 2) {
+    if (!LoadCapture(Argv[1], Captured)) return 2;
+    TestCapture(Captured);
+  }
+  TestIdentity();
+  TestPowerAndPcie();
+  TestCapabilities();
+  TestPaths();
+  if (Failures != 0) {
+    fprintf(stderr, "%u/%u checks failed\n", Failures, Checks);
+    return 1;
+  }
+  printf("PASS %u preflight checks (%s plus malformed inputs)\n", Checks,
+         Argc == 2 ? "local RTX 3080 Ti fixture" : "synthetic profile");
+  return 0;
+}
