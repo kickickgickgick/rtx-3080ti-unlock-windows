@@ -2,6 +2,8 @@
 
 이 저장소는 `Zagitta/gpu-unlock` 계열의 GA102 연산 unlock 절차를 RTX 3080 Ti에 맞춘 실험 포트입니다. UEFI에서 대상 GPU의 펌웨어 드라이버를 분리하고 unlock 트랜잭션을 실행한 뒤, 펌웨어 GOP를 재연결하지 않고 내부 Windows Boot Manager를 직접 chainload합니다.
 
+`rough2515-hub/rtx3080-unlock-public` 을 기반으로 작성된 레포지토리입니다.
+
 PCI BDF, subsystem ID, BAR0 주소와 PCIe 경로를 소스에 고정하지 않습니다. 별도의 읽기 전용 probe가 현재 시스템에서 값을 수집하고, 사용자는 여러 RTX 3080 Ti가 발견된 경우 대상 GPU 번호만 선택합니다. 생성된 로컬 프로필과 실행 시 다시 읽은 상태가 정확히 일치하지 않으면 unlock 앱은 실행을 거부합니다.
 
 이 구조가 모든 RTX 3080 Ti를 지원한다는 뜻은 아닙니다. 프로필 생성기는 현재 검증 정책과 다른 칩·VRAM·BAR 구조·PROM·콜드 selector·복잡한 PCIe 스위치 경로를 거부하며, 프로필이 생성되더라도 다른 보드와 펌웨어의 안전성은 보장되지 않습니다.
